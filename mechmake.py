@@ -4,7 +4,7 @@ mechmake = Flask(__name__)
 
 @mechmake.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('home.html')
 
 if __name__ == '__main__':
       mechmake.run(debug=True,port=3300)
