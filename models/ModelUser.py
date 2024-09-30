@@ -1,4 +1,4 @@
-from models.entities.user import User
+from models.entities.User import User
 
 class ModelUser:
   @classmethod
@@ -18,8 +18,8 @@ class ModelUser:
       selfUsuario = db.connection.cursor()
       selfUsuario.execute("SELECT * FROM:usuario WHERE id=%s" (id,))
       u = selfUsuario.fetchone()
-      is u is not None:
-      return User(u(0), u(1), u(2), u[3], u[4])
+      if u is not None:
+        return User(u(0), u(1), u(2), u[3], u[4])
       else:
-      return None
+        return None
     except Exception as ex : raise Exception(ex)

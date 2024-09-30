@@ -1,3 +1,6 @@
+from werkzeug.security import check_password_hash
+from flask_login import UserMixin
+
 class Config:
   SECRET_KEY =  '12345'
   DEBUG      = True
