@@ -53,9 +53,9 @@ def signup():
         correo = request.form['correo']
         clave = request.form['clave']
         claveCifrado = generate_password_hash(clave)
-        fechaReg = datetime.datetime.now()
+        fechareg = datetime.datetime.now()
         regUsuario = db.connection.cursor()
-        regUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg) VALUES (%s, %s, %s, %s)", (nombre, correo, claveCifrado, fechaReg))
+        regUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg) VALUES (%s, %s, %s, %s)", (nombre, correo, claveCifrado, fechareg))
         db.connection.commit()
         return render_template('home.html')
     else:
@@ -65,6 +65,15 @@ def signup():
 def sigout():
     logout_user()
     return redirect(url_for('home'))
+
+
+@mechmake.route('/sUsuario',methods=['GET','POST'])
+def sUsuario():
+    sUsuario = db.connection.cursor()
+    sUsuario.execute("SELECT * FROM usuario")
+    u = sUsuario.fetchall()
+    sUsuario.close()
+    return render_template ('usuario.html',usuarios=u)
 
 if __name__ == '__main__':
     mechmake.config.from_object(config['development'])
