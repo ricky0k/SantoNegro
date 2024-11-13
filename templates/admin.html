@@ -4,122 +4,133 @@
 {% block content %}
 
 <style>
-  body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
-  }
-  .sidebar {
-      height: 100vh;
-      background-color: #343a40;
-      padding: 15px;
-      position: fixed;
-  }
-  .sidebar a {
-      color: #fff;
-      display: block;
-      padding: 10px 15px;
-      text-decoration: none;
-  }
-  .sidebar a:hover {
-      background-color: #495057;
-  }
-  .main-content {
-      margin-left: 200px;
-      padding: 20px;
-  }
-  .card-custom {
-      border-radius: 10px;
-  }
-  .navbar-custom {
-      background-color: #007bff;
-  }
-  .navbar-custom .navbar-brand, .navbar-custom .navbar-nav .nav-link {
-      color: #fff;
-  }
-  .profile-img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid #fff;
-  }
-  .card-title {
-      font-weight: bold;
-  }
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    .sidebar {
+        height: 100vh;
+        background-color: #343a40;
+        padding: 15px;
+        position: fixed;
+    }
+
+    .sidebar a {
+        color: #fff;
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+    }
+
+    .sidebar a:hover {
+        background-color: #495057;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        padding: 20px;
+    }
+
+    .card-custom {
+        border-radius: 10px;
+    }
+
+    .navbar-custom {
+        background-color: #007bff;
+    }
+
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-nav .nav-link {
+        color: #fff;
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #fff;
+    }
+
+    .card-title {
+        font-weight: bold;
+    }
 </style>
 
- <!-- Sidebar -->
- <div class="sidebar">
-  <h4 class="text-white">Admin Panel</h4>
-  <a href="/">Home</a>
-  <a href="/admin">Estadisticas</a>
-  <a href="/sElectronicos">Electronicos</a>
-  <a href="/sUsuario">Users</a>
-  <a href="#">Settings</a>
-  <a href="/sigout">Logout</a>
+<!-- Sidebar -->
+<div class="sidebar">
+    <h4 class="text-white">Admin Panel</h4>
+    <a href="/">Home</a>
+    <a href="/admin">Estadisticas</a>
+    <a href="/sElectronicos">Electronicos</a>
+    <a href="/sUsuario">Users</a>
+    <a href="#">Settings</a>
+    <a href="/sigout">Logout</a>
 </div>
 
 <!-- Main content -->
 <div class="main-content">
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-custom">
-      <div class="container-fluid">
-          <a class="navbar-brand" href="#">{{current_user.nombre}}</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-      </div>
-  </nav>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">{{current_user.nombre}}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
 
-  <!-- Profile Section -->
-  <div class="row mt-4">
-      <div class="col-md-4 text-center">
-          <img src="https://via.placeholder.com/150" alt="Admin Profile" class="profile-img mb-3">
-          <h4></h4>
-          <p></p>
-      </div>
-      <div class="col-md-8">
-          <h5>Statistics</h5>
-          <div class="row">
-              <div class="col-md-4">
-                  <div class="card card-custom text-center">
-                      <div class="card-body">
-                          <h6 class="card-title">Total Users</h6>
-                          <p class="card-text">150</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                  <div class="card card-custom text-center">
-                      <div class="card-body">
-                          <h6 class="card-title">Active Sessions</h6>
-                          <p class="card-text">25</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                  <div class="card card-custom text-center">
-                      <div class="card-body">
-                          <h6 class="card-title">New Signups</h6>
-                          <p class="card-text">10</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Profile Section -->
+    <div class="row mt-4">
+        <div class="col-md-4 text-center">
+            <img src="https://via.placeholder.com/150" alt="Admin Profile" class="profile-img mb-3">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div class="col-md-8">
+            <h5>Statistics</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-custom text-center">
+                        <div class="card-body">
+                            <h6 class="card-title">Total Users</h6>
+                            <p class="card-text">150</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-custom text-center">
+                        <div class="card-body">
+                            <h6 class="card-title">Active Sessions</h6>
+                            <p class="card-text">25</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-custom text-center">
+                        <div class="card-body">
+                            <h6 class="card-title">New Signups</h6>
+                            <p class="card-text">10</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- Graph Section (placeholder) -->
-  <div class="row mt-5">
-      <div class="col-md-12">
-          <h5>Performance Overview</h5>
-          <div class="card card-custom">
-              <div class="card-body">
-                  <canvas id="performanceChart"></canvas>
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Graph Section (placeholder) -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h5>Performance Overview</h5>
+            <div class="card card-custom">
+                <div class="card-body">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Bootstrap JS and dependencies -->
@@ -127,29 +138,29 @@
 <!-- Chart.js (for graphs) -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Example chart (Performance Overview)
-  const ctx = document.getElementById('performanceChart').getContext('2d');
-  const performanceChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-          datasets: [{
-              label: 'User Growth',
-              data: [10, 20, 30, 40, 50, 60],
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 2,
-              fill: false
-          }]
-      },
-      options: {
-          responsive: true,
-          plugins: {
-              legend: {
-                  display: true
-              }
-          }
-      }
-  });
+    // Example chart (Performance Overview)
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    const performanceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [{
+                label: 'User Growth',
+                data: [10, 20, 30, 40, 50, 60],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            }
+        }
+    });
 </script>
 
 {% endblock %}
