@@ -3,18 +3,151 @@
 {% block title %} Admin/Usuarios{% endblock %}
 {% block content %}
 
+<style>
+  body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+  }
+  .sidebar {
+      height: 100vh;
+      background-color: #343a40;
+      padding: 15px;
+      position: fixed;
+  }
+  .sidebar a {
+      color: #fff;
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+  }
+  .sidebar a:hover {
+      background-color: #495057;
+  }
+  .main-content {
+      margin-left: 200px;
+      padding: 20px;
+  }
+  .card-custom {
+      border-radius: 10px;
+  }
+  .navbar-custom {
+      background-color: #007bff;
+  }
+  .navbar-custom .navbar-brand, .navbar-custom .navbar-nav .nav-link {
+      color: #fff;
+  }
+  .profile-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #fff;
+  }
+  .card-title {
+      font-weight: bold;
+  }
+</style>
+
+ <!-- Sidebar -->
+ <div class="sidebar">
+  <h4 class="text-white">Admin Panel</h4>
+  <a href="/">Home</a>
+  <a href="/admin">Estadisticas</a>
+  <a href="/sElectronicos">Electronicos</a>
+  <a href="/sUsuario">Users</a>
+  <a href="#">Settings</a>
+  <a href="#">Logout</a>
+</div>
+
+<!-- Main content -->
+<div class="main-content">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="#">{{current_user.nombre}}</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+      </div>
+  </nav>
+
+  <!-- Profile Section -->
+  <div class="row mt-4">
+      <div class="col-md-4 text-center">
+          <img src="https://via.placeholder.com/150" alt="Admin Profile" class="profile-img mb-3">
+          <h4></h4>
+          <p></p>
+
+  </div>
+
 <table class="table table-striped">
+  {% with mensajes = get_flashed_messages() %}
+  {% if mensajes %}
+  {% for m in mensajes %}
+  
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ m }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  
     <table class="table">
         <thead>
           <tr>
             <th scope="col">id</th>
             <th scope="col">nombre</th>
             <th scope="col">correo</th>
-            <th scope="col">clave</th>
             <th scope="col">fechareg</th>
             <th scope="col">perfil</th>
-            <th scope="col" colspan="2">&nbsp;</th>
+            <th scope="col" colspan="2">
+                        <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertar">
+                    U
+                  </button>
+            </th>
           </tr>
+
+
+<!-- Modal -->
+<div class="modal fade" id="insertar" tabindex="-1" aria-labelledby="insertarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="insertarLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/iUsuario" method="post">
+      <div class="modal-body" >
+                    <div class="input-group">
+                <label for="username">Usuario</label>
+                <input  type="text" id="username" name="nombre" required>
+            </div>
+            <div class="input-group">
+                <label for="correo">Correo Electrónico</label>
+                <input  type="email" id="correo" name="correo" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="clave" required>
+            </div>
+            <div class="input-group">
+              <select name="perfil" class="form-select" aria-label="Default select example">
+                <option selected>Elige un perfil</option>
+                <option value="A">Administrador</option>
+                <option value="U">Usuario final</option>
+              </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
         </thead>
         <tbody>
             {% for u in usuarios %}
@@ -22,12 +155,11 @@
             <th scope="row">{{u.0}}</th>
             <td>{{ u.1 }}</td>
             <td>{{ u.2 }}</td>
-            <td>{{ u.3 }}</td>
             <td>{{ u.5 }}</td>
             <td>{{ u.6 }}</td>
             <td><i class="fa-regular fa-user"></i></td>
             <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar{{u.0}}">
                     
                 </button>
                 <i class="fa-solid fa-user-minus"></i></td>
@@ -35,20 +167,42 @@
           </tr> 
 
   
-  <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <!-- Modal Editor -->
+  <div class="modal fade" id="editar{{u.0}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuarios</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <form action="/uUsuario" method="post">
         <div class="modal-body">
-          ...
+          
+            <div class="input-group">
+                <label for="username">Usuario</label>
+                <input value="{{u.1}}" type="text" id="username" name="nombre" required>
+            </div>
+            <div class="input-group">
+                <label for="correo">Correo Electrónico</label>
+                <input value="{{u.1}}" type="email" id="correo" name="correo" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Contraseña</label>
+                <input value="{{u.1}}" type="password" id="password" name="clave" required>
+            </div>
+
+            <div class="input-group">
+              <select class="form-select" aria-label="Default select example">
+                <option selected>{{u.5}}</option>
+                <option value="A">A</option>
+              </select>
+            </div>
+        </form>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
+          <button type="submit" class="btn btn-primary">guardar cambios</button>
         </div>
       </div>
     </div>

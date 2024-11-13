@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, flash, render_template, url_for, request, redirect
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash
 import datetime
@@ -9,6 +9,10 @@ from models.entities.User import User
 
 mechmake = Flask(__name__)
 db = MySQL(mechmake)
+#pythonanywhere
+mechmake.config.from_object(config['development'])
+
+
 adminSession = LoginManager(mechmake)
 
 @adminSession.user_loader
@@ -38,11 +42,13 @@ def signin():
                 if usuarioAutenticado.perfil == 'A':
                     return render_template('admin.html')
                 else:
-                    return render_template('user.html')
+                    return redirect(url_for('sElectronicos'))
             else:
-                return 'Contraseña incorrecta'
+                flash('contraseña incorrecta')
+                return redirect(request.url)
         else:
-            return 'Usuario inexistente'
+            flash('usuario inecxistente')
+            return redirect(request.url)
     else:
         return render_template('signin.html')
 
@@ -69,12 +75,50 @@ def sigout():
 
 @mechmake.route('/sUsuario',methods=['GET','POST'])
 def sUsuario():
-    sUsuario = db.connection.cursor()
-    sUsuario.execute("SELECT * FROM usuario")
-    u = sUsuario.fetchall()
-    sUsuario.close()
+    selUsuario = db.connection.cursor()
+    selUsuario.execute("SELECT * FROM usuario")
+    u = selUsuario.fetchall()
+    selUsuario.close()
     return render_template ('usuario.html',usuarios=u)
 
-if __name__ == '__main__':
+@mechmake.route('/iUsuario', methods=['GET', 'POST'])
+def iUsuario():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        correo = request.form['correo']
+        clave = request.form['clave']
+        claveCifrado = generate_password_hash(clave)
+        fechareg = datetime.datetime.now()
+        perfil = request .form['perfil']
+        regUsuario = db.connection.cursor()
+        regUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg) VALUES (%s, %s, %s, %s)", (nombre, correo, claveCifrado, fechareg))
+        db.connection.commit()
+        regUsuario.close()
+        flash('usuario agregado ecxitosamente')
+        return redirect(url_for('sUsuario'))
+
+@mechmake.route('/uUsuario/<int:id>', methods=['GET','POST'])
+def uUsuario(id):
+    nombre=request.form['nombre']
+    correo=request.form['correo']
+    perfil=request.form['perfil']
+    actUsuario = db.connection.cursor()
+    actUsuario.execute("UPDATE usuario SET nombre=%s,correo=%s,perfil=%s WHERE id=%s",(nombre.upper(),correo,perfil))|
+    db.connection.commit()
+    actUsuario.close('')
+    flash('usuario actualizado')
+    return redirect(url_for())
+    
+    
+@mechmake.route('/sElectronicos', methods=['GET','POST'])
+def sElectronicos ():
+    sElectronicos = db.connection.cursor()
+    sElectronicos.execute("SELECT * FROM productos")
+    art = sElectronicos.fetchall()
+    sElectronicos.close()
+    return render_template('Electronicos.html', productos = art)
+
+
+'''if __name__ == '__main__':
     mechmake.config.from_object(config['development'])
-    mechmake.run(port=3300)
+    mechmake.run(port=3300)'''

@@ -1,41 +1,30 @@
+
 {% extends 'layout.html' %}
 
-{% block titulo %} Regístrate {% endblock %}
-
+{% block titulo %} Iniciar Sesión {% endblock %}
 {% block content %}
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Impact&display=swap');
-
-    .signup-container {
+    .login-container {
         display: flex;
-        justify-content: space-around; /* Centrar contenido horizontalmente */
-        align-items: space;
-        height: 70nvh;
-        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-        padding: 0 50px; /* Añadir algo de padding a los lados */
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
     }
 
-    .mechmake-logo {
-        font-family: 'Impact', sans-serif;
-        font-size: 80px;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        margin-right: 50px; /* Espacio entre "MechMake" y el formulario */
-    }
-
-    .signup-box {
+    .login-box {
         background-color: white;
         padding: 40px;
         border-radius: 15px;
-        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
         width: 100%;
         max-width: 400px;
         text-align: center;
         animation: fadeIn 1s ease-in-out;
     }
 
-    .signup-box h2 {
+    .login-box h2 {
         margin-bottom: 30px;
         font-weight: bold;
         color: #343a40;
@@ -63,15 +52,15 @@
     }
 
     .input-group input:focus {
-        border-color: #6a11cb;
-        box-shadow: 0 0 5px rgba(106, 17, 203, 0.3);
+        border-color: #0072ff;
+        box-shadow: 0 0 5px rgba(0, 114, 255, 0.3);
     }
 
-    .signup-btn {
+    .login-btn {
         width: 100%;
         padding: 10px;
         font-size: 18px;
-        background-color: #6a11cb;
+        background-color: #0072ff;
         color: white;
         border: none;
         border-radius: 5px;
@@ -79,17 +68,17 @@
         transition: background-color 0.3s ease;
     }
 
-    .signup-btn:hover {
-        background-color: #2575fc;
+    .login-btn:hover {
+        background-color: #0056b3;
     }
 
     p {
         margin-top: 15px;
-        color: #343a40;
+        color: white;
     }
 
     p a {
-        color: #6a11cb;
+        color: #ffd700;
         text-decoration: none;
     }
 
@@ -135,34 +124,35 @@
     </div>
 </nav>
 
-<div class="signup-container">
-    <!-- Nombre MechMake alineado a la izquierda -->
-    <div class="mechmake-logo">
-        MechMake
-    </div>
-
-    <!-- Formulario de registro alineado a la derecha -->
-    <div class="signup-box">
-        <h2>Registrarse</h2>
-        <form action="/signup" method="POST">
+<div class="login-container">
+    <div class="login-box">
+        <h2>Iniciar Sesión</h2>
+        <form action="/signin" method="post">
+            {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+            {% for m in mensajes %}
+            
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ m }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
             <div class="input-group">
                 <label for="username">Usuario</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="nombre" required>
             </div>
             <div class="input-group">
-                <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" name="email" required>
+                <label for="correo">Correo Electrónico</label>
+                <input type="email" id="correo" name="correo" required>
             </div>
             <div class="input-group">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="clave" required>
             </div>
-            <div class="input-group">
-                <label for="confirm-password">Confirmar Contraseña</label>
-                <input type="password" id="confirm-password" name="confirm-password" required>
-            </div>
-            <button type="submit" class="signup-btn">Registrarse</button>
-            <p>¿Ya tienes cuenta? <a href="/signin">Inicia sesión aquí</a></p>
+            <button type="submit" class="login-btn">Iniciar Sesión</button>
+            <p>¿No tienes cuenta? <a href="#">Regístrate aquí</a></p>
         </form>
     </div>
 </div>

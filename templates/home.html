@@ -1,26 +1,66 @@
 {% extends 'layout.html' %}
 
-{% block title %} Mi Sitio Web {% endblock %}
+{% block title %} MechMake - Tu Tienda de Electrónica {% endblock %}
 {% block content %}
 
-
-<!-- Navbar principal -->
-
 <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+    }
 
-.container {
-    padding-left: 20px; /* Espaciado extra a los lados */
-    padding-right: 20px;
-}
+    /* Navbar */
+    .navbar {
+        background-color: #007bff;
+    }
+    .navbar-brand {
+        color: #fff;
+        font-weight: bold;
+    }
+    .navbar-nav .nav-link {
+        color: #fff;
+    }
+    .navbar-nav .nav-link:hover {
+        color: #ffd700;
+    }
 
-.card {
-    padding: 15px; /* Añadir padding dentro de las tarjetas */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
+    /* Carousel */
+    .carousel-inner img {
+        border-radius: 10px;
+        object-fit: cover;
+    }
 
+    /* Cards */
+    .card {
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .card-title {
+        color: #007bff;
+        font-weight: bold;
+    }
+    .card-text {
+        color: #555;
+    }
+
+    /* Botones */
+    .btn-outline-success {
+        color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-outline-success:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
 </style>
 
+<!-- Navbar principal -->
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">MechMake</a>
@@ -33,29 +73,12 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin">admin</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/user">admin</a>
-              </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Account
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/signin">Sign In</a></li>
-                        <li><a class="dropdown-item" href="/signup">Sign Up</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Help</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="/productos">Productos</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
         </div>
     </div>
@@ -63,101 +86,80 @@
 
 <!-- Scrollspy Navbar -->
 <nav id="navbar-example2" class="navbar navbar-light bg-body-tertiary px-3 mb-3">
-    <a class="navbar-brand" href="#">ScrollSpy Navbar</a>
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="#scrollspyHeading1">Sign In</a>
+            <a class="nav-link" href="/signin">Iniciar Sesión</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#scrollspyHeading2">Sign Up</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">More</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#scrollspyHeading3">Third</a></li>
-                <li><a class="dropdown-item" href="#scrollspyHeading4">Fourth</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#scrollspyHeading5">Fifth</a></li>
-            </ul>
+            <a class="nav-link" href="/signup">Regístrate</a>
         </li>
     </ul>
 </nav>
 
-<div id="carouselExample" class="carousel slide">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="/static/img/arduinobuynow.png" class="d-block w-100" alt="...">
+<!-- Carrusel -->
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/static/img/arduinobuynow.png" class="d-block w-100" alt="Arduino">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>¡Ofertas en Arduinos!</h5>
+                <p>Explora nuestra selección de productos Arduino a precios especiales.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/static/img/BoyProtoboard.png" class="d-block w-100" alt="Protoboard">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Protoboards de alta calidad</h5>
+                <p>Ideal para tus proyectos de electrónica.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/static/img/mechamarketa.png" class="d-block w-100" alt="Componentes">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Componentes de primera</h5>
+                <p>Todo lo que necesitas para tus creaciones mecánicas y electrónicas.</p>
+            </div>
+        </div>
     </div>
-    <div class="carousel-item">
-      <img src="/static/img/BoyProtoboard.png" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/static/img/mechamarketa.png" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
 </div>
 
+<!-- Sección de Productos -->
 <div class="container my-5">
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    <h2 class="text-center mb-4">Explora nuestros productos destacados</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/img/product1.png" class="card-img-top" alt="Producto 1">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="card-text">Descripción breve del producto.</p>
+                    <h6 class="card-subtitle mb-2 text-muted">$19.99</h6>
+                    <a href="#" class="btn btn-primary mt-2">Comprar ahora</a>
+                </div>
+            </div>
         </div>
-      </div>
+        <!-- Repite las demás tarjetas de productos aquí -->
     </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <!-- Repite las demás tarjetas aquí -->
-  </div>
 </div>
 
-
-
-
+<!-- Footer -->
+<footer class="text-center py-4 mt-5" style="background-color: #007bff; color: white;">
+    <div class="container">
+        <p>&copy; 2023 MechMake. Todos los derechos reservados.</p>
+        <p>
+            <a href="#" class="text-white mx-2">Facebook</a> | 
+            <a href="#" class="text-white mx-2">Instagram</a> | 
+            <a href="#" class="text-white mx-2">Twitter</a>
+        </p>
+    </div>
+</footer>
 
 {% endblock %}
