@@ -103,7 +103,7 @@ def uUsuario(id):
     correo=request.form['correo']
     perfil=request.form['perfil']
     actUsuario = db.connection.cursor()
-    actUsuario.execute("UPDATE usuario SET nombre=%s,correo=%s,perfil=%s WHERE id=%s",(nombre.upper(),correo,perfil))|
+    actUsuario.execute("UPDATE usuario SET nombre=%s,correo=%s,perfil=%s WHERE id=%s",(nombre.upper(),correo,perfil))
     db.connection.commit()
     actUsuario.close('')
     flash('usuario actualizado')
@@ -117,7 +117,6 @@ def sElectronicos ():
     art = sElectronicos.fetchall()
     sElectronicos.close()
     return render_template('Electronicos.html', productos = art)
-
 
 '''if __name__ == '__main__':
     mechmake.config.from_object(config['development'])
