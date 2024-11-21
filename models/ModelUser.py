@@ -1,4 +1,4 @@
-from models.entities.User import User
+from models.entities.user import User
 
 class ModelUser:
   @classmethod

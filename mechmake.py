@@ -5,7 +5,7 @@ import datetime
 from flask_login import LoginManager, login_user, logout_user
 from config import config
 from models.ModelUser import ModelUser
-from models.entities.User import User
+from models.entities.user import User
 
 mechmake = Flask(__name__)
 db = MySQL(mechmake)
