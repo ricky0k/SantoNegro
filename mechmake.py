@@ -61,7 +61,7 @@ def signup():
         claveCifrado = generate_password_hash(clave)
         fechareg = datetime.datetime.now()
         regUsuario = db.connection.cursor()
-        regUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg) VALUES (%s, %s, %s, %s)", (nombre, correo, claveCifrado, fechareg))
+        regUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg) VALUES (%s, %s, %s, %s)", (nombre, correo, claveCifrado, fechareg) )
         db.connection.commit()
         return render_template('home.html')
     else:
